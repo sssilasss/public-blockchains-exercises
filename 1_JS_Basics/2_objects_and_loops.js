@@ -48,13 +48,21 @@ console.log(typeof null);
 // decided that the type of null is 'object'.
 // Hint. The property name must contain the full name (Brendan Eich), and
 // the property birth must contain the year in which he was born (1961).
-
+person = {
+    namen : 'Brendan Eich',
+    year : 1961
+};
+console.log(person);
 // b. Access the properties of the person object.
-
+console.log(person.namen)
+console.log(person.year)
 
 // EXERCISE 2. Add and remove properties to the person object.
 //////////////////////////////////////////////////////
-
+person.first = 'Brendan';
+person.last = 'Eich';
+delete person.namen;
+console.log(person);
 // Now you realize that it makes more sense to split the property 'name' into
 // two: 'first' and 'last' name. Accordingly you delete the propery name.
 
@@ -65,16 +73,22 @@ console.log(typeof null);
 // a. Create an array called persons containing three items.
 // You already have Brendan, now add another two inspiring personalities.
 // For example, Pablo Picasso and Napoleon Bonaparte. When are they born?
+persons = [
+    person,
+    {first : 'Pablo', last : 'Picasso', year : 1900},
+    {first : 'Napoleon', last: 'Bonaparte', year : 1920},
+];
 
+console.log(persons)
 // b. Count how many elements are in the array.
-
+console.log(persons.length)
 // c. Access the second element of the array.
-
+console.log(persons[1])
 // Arrays are 0-indexed, that is the first element has index 0,
 // the second element 1, and so on.
 
 // d. Access the property year of the second element of the array.
-
+console.log(persons[1].year)
 // EXERCISE 4. Pick a random item in the array of persons.
 //////////////////////////////////////////////////////////
 
@@ -82,7 +96,7 @@ console.log(typeof null);
 // number of elements in the array, then "floor" it with the corresponding
 // method of the Math object.
 // randomNumber = ... 
-console.log(persons[randomNumber]);
+//console.log(persons[randomNumber]);
 
 // EXERCISE 5. Add a new elements to the array of persons.
 //////////////////////////////////////////////////////////
@@ -95,7 +109,7 @@ console.log(persons[randomNumber]);
 // Hint: There are a couple of ways of achieving this, depending to where
 // you would like to add the element. For instance the method `push`
 // will add at the bottom of the array.
-
+persons.push({first:'Phil',last:'katz', year : 1962})
 // Verify that you added at the bottom.
 console.log(persons[3]);
 
@@ -105,7 +119,7 @@ console.log(persons[3]);
 // Maybe you hurried too much with Phil Katz. What about
 // replacing him with Linus Torvalds (1969) instead?
 // Hint: simply assign a new value at a given array index.
-
+persons[3] = {first : 'Linus', last : 'Torvalds', year : 1969};
 // Verify who is the bottom of the array.
 console.log(persons[3]);
 

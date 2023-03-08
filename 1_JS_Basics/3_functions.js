@@ -24,7 +24,10 @@ printMyName();
 // input parameter and prints a sentence containing the name. For instance:
 // printSentence('Brendan');
 // 'Brendan is great!'.
-
+function printSentence(name) {
+    console.log(`${name} is great!`)
+}
+printSentence('Brendan');
 
 // b. Modify the printSentence function so that it takes an object of the
 // type you createed in the "Objects and loops" exercise and compose a
@@ -36,7 +39,7 @@ printMyName();
 // the brendan object from Exercise Sheed 2 here.
 
 function printSentence(person) {
-    // Add code here
+    console.log(`${personObject.first} ${personObject.last} is born in ${personObject.year} and he is great`);
 }
 personObject = { first: 'Brendan', last: 'Eich', year: 1961 };
 printSentence(personObject);

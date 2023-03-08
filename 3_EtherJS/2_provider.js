@@ -13,7 +13,8 @@
 // Hint: As you did in file 1_wallet.
 
 // Your code here!
-
+require('dotenv').config();
+const ethers = require("ethers");
 
 // Exercise 1. Connect to Mainnet (a.k.a welcome async!).
 /////////////////////////////////////////////////////////
@@ -27,7 +28,8 @@
 // 2. async/await pattern (newer notation)
 //
 // Important! You can use promises anywhere in your code, but you can use 
-// "await" only inside an "async" function. This makes things a bit more
+// "await" only inside
+// an "async" function. This makes things a bit more
 // complicated, but not too much.
 // 
 // If this is new to you, you can read more about these here:
@@ -43,7 +45,10 @@
 
 
 // Your code here!
+const infuraKey = process.env.INFURA_KEY;
+const infuraUrl = `${process.env.INFURA_MAINNET_API_URL}${infuraKey}`;
 
+const provider = new ethers.providers.JsonRpcProvider(infuraUrl);
 
 // b. Verify that the network's name is "mainnet" and the chain id that theis 1.
 
@@ -55,8 +60,12 @@
 // https://javascript.info/bigint 
 
 // b1. Use the async/await pattern to do the job.
+const networkfunction = async () => {
+    let net = await provider.getNetwork();
+    console.log(net.name);
+};
 
-
+networkfunction();
 // This is an asynchronous anonymous self-executing function. It is a ugly
 // construct, but it allows you to use await inside its body.
 (async () => {
@@ -97,11 +106,13 @@ const network = async () => {
 
 // // Look up the current block number
 const blockNum = async () => {
-    
+    let blockmainnet = await provider.getBlock();
+    console.log(blockmainnet.number);
     // Your code here!
 
 };
 
+blockNum();
 // blockNum();
 
 // b. The Ethereum mainnet is one of the most secure blockchains in the world.
@@ -111,14 +122,22 @@ const blockNum = async () => {
 
 // Connect to the Goerli test net, get the latest block number and print
 // the difference in chain length with mainnet.
+const infuraKeytest = process.env.INFURA_KEY;
+const infuraUrltest = `${process.env.INFURA_GOERLI_API_URL}${infuraKeytest}`;
 
+const providertest = new ethers.providers.JsonRpcProvider(infuraUrltest)
 
 // Look up the current block number in Mainnet and Goerli.
 const blockDiff = async () => {
-
+    let blockmain = await provider.getBlock();
+    let blocktest = await providertest.getBlock();
+    blockDiff1 = blockmain.number - blocktest.number;
+    console.log(blockmain.number);
+    console.log(blocktest.number);
+    console.log(blockDiff1);
 };
 
-// blockDiff();
+blockDiff();
 
 
 // Exercise 3. Block time.
