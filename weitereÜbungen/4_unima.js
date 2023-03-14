@@ -4,11 +4,13 @@
 // Exercise 0. Load dependencies and network provider.
 //////////////////////////////////////////////////////
 
+
 // a. Require the `dotenv` and `ethers` packages.
 // Hint: As you did multiple times now.
 
+// Your code here!
 require('dotenv').config();
-const ethers = require("ethers");
+const ethers = require('ethers');
 
 // Exercise 1. Create a JSON RPC Provider for the (not) UniMa Blockchain.
 /////////////////////////////////////////////////////////////////////////
@@ -26,26 +28,26 @@ const ethers = require("ethers");
 // b. Create the JSON RPC provider object.
 // Hint: only accessible within UniMa network.
 
-const notUniMaUrl = process.env.NOT_UNIMA_URL_1;
-const notUniMaProvider = new ethers.providers.JsonRpcProvider(notUniMaUrl);
-
+// Your code here!
+const unimaUrl = process.env.NOT_UNIMA_URL_1
+const provider = new ethers.providers.JsonRpcProvider(unimaUrl);
 // Exercise 2. Let's query the provider.
 ////////////////////////////////////////
 
 // (not) UniMa Blockchain si too long. Let's call it NUMA.
 // Print to console the network name, chain id, and block number of NUMA.
+const network = async () => {
+    const Numa = await provider.getNetwork();
+    console.log(Numa.name);
+    console.log(Numa.chainId);
 
-const networkInfo = async () => {
-    let net = await notUniMaProvider.getNetwork();
-    console.log('NUMA Info:');
-    console.log('Network name: ', net.name);
-    console.log('Network chain id: ', Number(net.chainId));
+    const NumaBlock = await provider.getBlock();
+    console.log(NumaBlock.number);
+}
+network();
+    // Your code here!
 
-    let blockNumber = await notUniMaProvider.getBlockNumber();
-    console.log('Block number: ', blockNumber);
-};
 
-networkInfo();
 
 
 // Exercise 3. Connect a signer to the (not) UniMa blockchain.
@@ -53,19 +55,17 @@ networkInfo();
 
 // a. Use the same non-sensitive private key used in 3_signer.js.
 
-
-const signer = new ethers.Wallet(process.env.METAMASK_1_PRIVATE_KEY,
-                                 notUniMaProvider);
-
+// Your code here!
+const signer = new ethers.Wallet(process.env.METAMASK_1_PRIVATE_KEY,provider);
 // b. Print the next nonce necessary to send a transaction.
 // Hint: .getNonce()
 
-const getNonce = async() => {
 
+    // Your code here!
+const getNonce = async () => {
     let nonce = await signer.getNonce();
-    console.log('Your nonce is ' + nonce);
-};
-
+    console.log(nonce);
+}
 //getNonce();
 
 // Checkpoint. Is the nonce in the (not) Unima blockchain different
@@ -80,52 +80,43 @@ const getNonce = async() => {
 // Hint: only accessible within UniMa network.
 
 // b. Check your balance on UniMa network.
-
 const checkBalance = async () => {
-
-    let balance = await notUniMaProvider.getBalance(signer.address);
-
-    console.log('My balance is ' + ethers.utils.formatEther(balance) + ' NUMETH.');
-};
-
+    let balance = await provider.getBalance(signer.address);
+    console.log(ethers.utils.formatEther(balance));
+}
 checkBalance();
+   // Your code here!
+
 
 // Exercise 5. Send a transaction.
 //////////////////////////////////
+const account2 = process.env.METAMASK_2_ADDRESS
 
 // Send some Ether from one of your accounts to another one on NUMA.
-
-const account2 = process.env.METAMASK_2_ADDRESS;
-
 const sendTransaction = async () => {
+    let b1before = await provider.getBalance(signer.address);
+    let b2before = await provider.getBalance(account2);
+    console.log(`Balance of account 1 before: ${ethers.utils.formatEther(b1before)}`);
+    console.log(`Balance of account 2 before: ${ethers.utils.formatEther(b2before)}`);
 
-    let b1 = await notUniMaProvider.getBalance(signer.address);
-    let b2 = await notUniMaProvider.getBalance(account2);
-    b1 = ethers.formatEther(b1);
-    b2 = ethers.formatEther(b2);
+    let tx = await signer.sendTransaction(
+        {
+            to : account2,
+            value : ethers.utils.parseEther('0.05')
+        }
+    );
 
-    tx = await signer.sendTransaction({
-        to: account2,
-        value: ethers.parseEther("0.01")
-    });
-
-    // console.log(tx);
-    
-    console.log('Transaction is in the mempool...');
     await tx.wait();
+    console.log(tx);
 
-    console.log('Transaction mined!');
+    let b1after = await provider.getBalance(signer.address);
+    let b2after = await provider.getBalance(account2);
+    console.log(`Balance of account 1 before: ${ethers.utils.formatEther(b1after)}`);
+    console.log(`Balance of account 2 before: ${ethers.utils.formatEther(b2after)}`);
 
-    let updatedB1 = await notUniMaProvider.getBalance(signer.address);
-    let updatedB2 = await notUniMaProvider.getBalance(account2);
-    updatedB1 = ethers.formatEther(updatedB1);
-    updatedB2 = ethers.formatEther(updatedB2);
+}
 
-    console.log('Balance for', signer.address, 'changed from', b1, 'to', updatedB1);
-    console.log('Balance for', account2, 'changed from', b2, 'to', updatedB2);
-};
-
-// sendTransaction();
+sendTransaction();
 
 // Checkpoint. Can you send your ETH from NUMA to Goerli?
 
