@@ -38,7 +38,8 @@ return;
 // a. Require ethers and print the version of Ethers, just to be sure.
 
 // Your code here!
-
+const ethers = require('ethers');
+console.log(ethers.version)
 return;
 
 // b. Hardhat uses v5 because it offers a plugin that is a wrapped version of
@@ -46,10 +47,9 @@ return;
 // hre.ethers (require statement above).
 // Print the version of this plugin, it should be the same as above.
 
-// Your code here!
 
-return;
 
+console.log(hre.ethers.version)
 // Exercise 1. Create a new Solidity contract.
 //////////////////////////////////////////////
 
@@ -57,6 +57,7 @@ return;
 // a new one? Yes, it's quite easy. 
 
 // a. Copy the contract file "Lock.sol" and rename creatively it as "Lock2.sol".
+
 
 // b. Copy the deployment script "deploy.js" and repeat the same creative
 // act by renaming it into "deploy2.js".
