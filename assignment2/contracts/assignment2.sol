@@ -157,20 +157,20 @@ contract Assignment2 is BaseAssignment{
         require(keccak256(abi.encodePacked(state)) == keccak256(abi.encodePacked('waiting')));
         require(keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('start')) || keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('play')) || keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('reveal')));
         if (keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('start'))) {
-            //if (maxTime == 0) {
-            //    starttime = getBlockNumber() +10;
-            //}
-            //else {
+            if (maxTime == 0) {
+                starttime = 10;
+            }
+            else {
                 starttime = maxTime;
-            //}
+            }
         }
         else if (keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('play'))){
-            //if (maxTime == 0) {
-            //   playtime = getBlockNumber() +10;
-            //}
-            //else {
+            if (maxTime == 0) {
+               playtime = 10;
+            }
+            else {
                 playtime = maxTime;
-            //}
+            }
         }
         else if (keccak256(abi.encodePacked(action)) == keccak256(abi.encodePacked('reveal'))) {
                 revealtime = maxTime;
