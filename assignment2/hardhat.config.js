@@ -7,7 +7,7 @@ const res = require('dotenv')
 
 
 // Beware: NEVER put real Ether into testing accounts.
-const MM_PRIVATE_KEY = process.env.METAMASK_2_PRIVATE_KEY;
+const MM_PRIVATE_KEY = process.env.METAMASK_1_PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
